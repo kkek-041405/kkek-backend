@@ -1,0 +1,13 @@
+package dev.kkek.backend;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class KkekBackendApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
