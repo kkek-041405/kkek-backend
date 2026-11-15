@@ -13,6 +13,8 @@ services:
     depends_on:
       redis:
         condition: service_healthy
+      mongodb:
+        condition: service_started
 
   redis:
     image: redis:7-alpine
@@ -28,5 +30,17 @@ services:
       timeout: 3s
       retries: 5
 
+  mongodb:
+    image: mongo:latest
+    container_name: kkek-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=kkek_db
+    volumes:
+      - mongo-data:/data/db
+
 volumes:
   redis-data:
+  mongo-data:

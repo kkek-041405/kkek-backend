@@ -39,6 +39,12 @@
 			<artifactId>commons-pool2</artifactId>
 		</dependency>
 
+		<!-- MongoDB for Common Database -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+
 		<!-- Notification Engine Library -->
 		<dependency>
 			<groupId>com.system</groupId>
