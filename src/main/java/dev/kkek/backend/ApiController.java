@@ -19,16 +19,17 @@ public class ApiController {
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("service", "kkek-backend");
         response.put("status", "ONLINE");
-        response.put("message", "Welcome to the KKEK Backend API");
+        response.put("message", "Welcome to KKEK Backend API (with Distributed Notification Engine)");
         response.put("timestamp", Instant.now().toString());
         response.put("uptimeSeconds", ManagementFactory.getRuntimeMXBean().getUptime() / 1000);
-        response.put("version", "1.0.0");
+        response.put("version", "1.1.0");
 
         Map<String, String> endpoints = new LinkedHashMap<>();
-        endpoints.put("health", "/api/health");
-        endpoints.put("info", "/api/info");
-        endpoints.put("ping", "/api/ping");
-        endpoints.put("actuator", "/actuator/health");
+        endpoints.put("health", "GET /api/health");
+        endpoints.put("info", "GET /api/info");
+        endpoints.put("ping", "GET /api/ping");
+        endpoints.put("notify", "POST /api/v1/notify (Headers: Idempotency-Key; Body: {userId, channel, recipient, content})");
+        endpoints.put("actuator", "GET /actuator/health");
         response.put("endpoints", endpoints);
 
         return ResponseEntity.ok(response);
@@ -39,6 +40,7 @@ public class ApiController {
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("status", "UP");
         response.put("service", "kkek-backend");
+        response.put("notificationEngine", "LOADED");
         response.put("timestamp", Instant.now().toString());
         response.put("javaVersion", System.getProperty("java.version"));
         response.put("os", System.getProperty("os.name") + " " + System.getProperty("os.arch"));

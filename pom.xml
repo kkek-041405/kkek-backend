@@ -12,13 +12,14 @@
 	<artifactId>kkek-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>kkek-backend</name>
-	<description>Backend API Service for KKEK</description>
+	<description>Backend API Service for KKEK with Integrated Notification Engine</description>
 
 	<properties>
 		<java.version>21</java.version>
 	</properties>
 
 	<dependencies>
+		<!-- Web & Actuator -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -26,6 +27,25 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<!-- Redis for Notification Engine Streams & Idempotency -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
+
+		<!-- Notification Engine Library -->
+		<dependency>
+			<groupId>com.system</groupId>
+			<artifactId>notification-engine</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libs/notification-engine-0.0.1-SNAPSHOT.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -40,6 +60,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
