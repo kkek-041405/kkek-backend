@@ -1,16 +1,16 @@
 # Stage 1: Build application
-FROM eclipse-temurin:25-jdk AS builder
+FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /app
 
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
-RUN chmod +x ./mvnw && ./mvnw dependency:go-offline -B || true
+RUN chmod +x ./mvnw
 
 COPY src/ src/
 RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Minimal runtime image
-FROM eclipse-temurin:25-jre
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Non-root user for security
@@ -21,5 +21,5 @@ COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-# Production JVM optimizations for containers
+# Production JVM optimizations for containers (constrained RAM)
 ENTRYPOINT ["java", "-XX:+UseG1GC", "-XX:MaxRAMPercentage=75.0", "-jar", "app.jar"]
